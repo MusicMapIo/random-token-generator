@@ -1,0 +1,25 @@
+{
+  "name": "random-token-generator",
+  "version": "1.0.0",
+  "description": "Generate random strong or weak random keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MusicMapIo/random-token-generator.git"
+  },
+  "keywords": [
+    "random",
+    "string",
+    "token",
+    "crypto"
+  ],
+  "author": "MusicMap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MusicMapIo/random-token-generator/issues"
+  },
+  "homepage": "https://github.com/MusicMapIo/random-token-generator"
+}
