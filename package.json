@@ -4,7 +4,7 @@
   "description": "Generate random strong or weak random keys",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/MusicMapIo/random-token-generator/issues"
   },
-  "homepage": "https://github.com/MusicMapIo/random-token-generator"
+  "homepage": "https://github.com/MusicMapIo/random-token-generator",
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "run-parallel": "^1.1.2"
+  }
 }

@@ -7,41 +7,52 @@ rtg.STRONG_KEY_LEN = 32;
 rtg.WEAK_KEY_LEN = 16;
 
 rtg.generateKey = function(opts, done) {
+	// Setup the option defaults
 	if (typeof opts === 'function') {
 		done = opts;
 		opts = {};
 	}
 	opts = opts || {};
 	opts.len = opts.len || (opts.strong ? rtg.STRONG_KEY_LEN : rtg.WEAK_KEY_LEN);
-	opts.string = typeof opts.string !== 'undefined' ? opts.string : true;
 	opts.done = opts.done || done || function() {};
 
-	var fnc = opts.strong ? rtg.generateStrongKey : rtg.generateWeakKey;
+	// String can be boolean or a string representing an encoding
+	if ((!Buffer.isEncoding(opts.string) && opts.string !== false) || opts.string === 'base64' || opts.string === 'utf8') {
+		opts.string = 'hex';
+	}
+
+	// in some encodings then string is twice the number of characters as the number of bytes
+	if (opts.string === 'hex' || opts.string === 'utf16le' || opts.string === 'ucs2') {
+		opts.len = opts.string ? opts.len / 2 : opts.len;
+	}
+
+	// strong or weak key?
+	var fnc = opts.strong ? rtg._generateStrongKey : rtg._generateWeakKey;
 	return fnc(opts.len, opts.string, opts.retry, opts.done);
 };
 
-rtg.generateStrongKey = function(len, str, retry, done) {
-	// Generate a random string
+rtg._generateStrongKey = function(len, str, retry, done) {
+	// Generate the random bytes
 	return crypto.randomBytes(len, function(err, key) {
 		if (err && retry === false) {
 			return done(err);
 		} else if (err) {
-			return rtg.generateStrongKey(len, str, false, done);
+			return rtg._generateStrongKey(len, str, false, done);
 		}
 		
-		done(null, str ? key.toString('hex') : key);
+		done(null, str ? key.toString(str) : key);
 	});
 };
 
-rtg.generateWeakKey = function(len, str, retry, done) {
-	// Generate a random string
+rtg._generateWeakKey = function(len, str, retry, done) {
+	// Generate the psuedo-random bytes
 	return crypto.pseudoRandomBytes(len, function(err, key) {
 		if (err && retry === false) {
 			return done(err);
 		} else if (err) {
-			return rtg.generateWeakKey(len, str, false, done);
+			return rtg._generateWeakKey(len, str, false, done);
 		}
 		
-		done(null, str ? key.toString('hex') : key);
+		done(null, str ? key.toString(str) : key);
 	});
 };
