@@ -5,7 +5,7 @@ Generates both strong and weak crytographic tokens.  Provides a simple interface
 ## Install
 
 ```
-$ npm install --save loggerr
+$ npm install --save random-token-generator
 ```
 
 ## Usage
