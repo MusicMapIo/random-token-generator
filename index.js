@@ -22,7 +22,7 @@ rtg.generateKey = function(opts, done) {
 	}
 
 	// in some encodings then string is twice the number of characters as the number of bytes
-	if (opts.string === 'hex' || opts.string === 'utf16le' || opts.string === 'ucs2') {
+	if (opts.string === 'hex') {
 		opts.len = opts.string ? opts.len / 2 : opts.len;
 	}
 
