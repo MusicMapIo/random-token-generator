@@ -15,7 +15,7 @@ var rtg = require('random-token-generator');
 
 // The below options are also the defaults
 rtg.generateKey({
-	len: 16 // Generate 16 characters or bytes of data
+	len: 16, // Generate 16 characters or bytes of data
 	string: true, // Output keys as a hex string
 	strong: false, // Use the crypographically secure randomBytes function
 	retry: false // Retry once on error
